@@ -1,4 +1,5 @@
-import { GOOGLE_AUTH_INIT, SIGN_IN, SIGN_OUT } from "./types";
+import streams from "../apis/streams";
+import { FETCH_STREAMS, GOOGLE_AUTH_INIT, SIGN_IN, SIGN_OUT } from "./types";
 
 export const googleAuthInit = () => {
   return (dispatch) => {
@@ -30,4 +31,9 @@ export const signIn = () => async (dispatch) => {
 export const signOut = () => async (dispatch) => {
   await window.gapi.auth2.getAuthInstance().signOut();
   dispatch({ type: SIGN_OUT, payload: { isSignedIn: false, userId: null } });
+};
+
+export const fetchStreams = () => async (dispatch) => {
+  const response = await streams.get("/streams");
+  dispatch({ type: FETCH_STREAMS, payload: response.data });
 };

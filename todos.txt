@@ -20,11 +20,6 @@ user logging in
     2- userId that holds the user id google account
       this is used to add authorization to the application
   we should pass thunk to redux in order to make async requests in actions 
-  there should be 2 action creators for the auth object in redux state:
-    1- signIn: sends a request to google to sign in and takes the returned data and dispatches an action containing it (userId)
-    2- signOut: sends a request to google to sign out
-    3- getStatus: sends a request to google to know the login status of the user (not sure)
-  a reducer should take these actions and update the redux store
 
 the App component is responsible for loading and initializing google auth
 it does so using the action creator googleAuthInit
@@ -45,3 +40,24 @@ signOut action creator same as signIn
 
 show a button component that controls sign in state of the user when clicked on
 it can sign the user in or out using signIn & signOut action creators
+
+json server:
+make json server
+add some entries to it
+
+axios custom client:
+make apis folder and make streams.js file inside it
+export a client whose base url is "localhost:3001"
+
+StreamList component:
+make streams folder inside components folder
+make StreamList component which shows a list of streams
+it uses fetchStreams action creator to get the streams into redux store
+
+fetchStreams action creator:
+it makes a request to json server to receive all the streams
+it dispatches an action of type "FETCH_STREAMS" and of payload containing the array of streams
+
+streamsReducer:
+controls the state property "streams"
+receives FETCH_STREAMS action and turns the payload from an array to an object and updates the state

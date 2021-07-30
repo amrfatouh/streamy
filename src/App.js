@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { googleAuthInit } from "./actions";
 import LoginButton from "./components/LoginButton";
+import StreamsList from "./components/streams/StreamsList";
 
 class App extends Component {
   componentDidMount() {
@@ -12,6 +13,7 @@ class App extends Component {
     return (
       <div>
         <LoginButton />
+        <StreamsList />
       </div>
     );
   }
