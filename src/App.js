@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { googleAuthInit } from "./actions";
+import LoginButton from "./components/LoginButton";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  componentDidMount() {
+    this.props.googleAuthInit();
+  }
+
+  render() {
+    return (
+      <div>
+        <LoginButton />
+      </div>
+    );
+  }
 }
 
-export default App;
+export default connect(null, { googleAuthInit })(App);

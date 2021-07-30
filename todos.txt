@@ -1,0 +1,47 @@
+set up json server
+set up rtmp server
+set up client side
+
+user should be able to log in using google account
+at home page, show list of all streams
+user should be able to click on a stream to navigate to that stream
+there should be a button for the user to create a new stream
+that button should take the user to stream creation form
+user should see administrative buttons on entries he created
+he should see edit button that takes him to stream editing form
+he should see delete button that enables him to delete that stream
+
+user logging in
+  make a component to be responsible for logging in of the user
+  the component should be responsible for showing a button for the user for logging in or logging out
+  the component should be connected to redux
+  redux state should contain auth object holding 2 properties:
+    1- isSignedIn boolean property
+    2- userId that holds the user id google account
+      this is used to add authorization to the application
+  we should pass thunk to redux in order to make async requests in actions 
+  there should be 2 action creators for the auth object in redux state:
+    1- signIn: sends a request to google to sign in and takes the returned data and dispatches an action containing it (userId)
+    2- signOut: sends a request to google to sign out
+    3- getStatus: sends a request to google to know the login status of the user (not sure)
+  a reducer should take these actions and update the redux store
+
+the App component is responsible for loading and initializing google auth
+it does so using the action creator googleAuthInit
+that action creator is responsible for loading the auth2 library, initializing the auth2 object
+it does so after waiting for 1 second for the google api to load
+it dispatches an action containing the login state of the user and the userId (of kind GOOGLE_AUTH_INIT)
+the authReducer receives that action and updates the store state
+it sets up a listener to the login state which has callback:
+  the callback receives a boolean value representing the login state of the user
+  if the user is logged in, we dispatch an action of type SIGN_IN with suitable payload
+  if the user is logged out, we dispatch an action of type SIGN_OUT with suitable payload
+
+signIn action creator
+uses gapi to sign in the user
+waits till the sign in process is finish
+dispatches an action of type SIGN_IN and payload containing isSignedIn & userId
+signOut action creator same as signIn
+
+show a button component that controls sign in state of the user when clicked on
+it can sign the user in or out using signIn & signOut action creators
